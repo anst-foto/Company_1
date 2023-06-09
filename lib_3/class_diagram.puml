@@ -1,0 +1,87 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+abstract class Employee {
+# first_name : string
+# last_name : string
+# position : string
+
+# Employee(last_name : string, first_name : string, position : string)
+
++ GetName() : string
++ GetPosition() : string
+}
+
+Employee <|-- Manager
+class Manager {
++ Manager(last_name : string, first_name : string, position : string)
+}
+
+Employee <|-- Worker
+class Worker {
+- projects : int
+
++ Worker(last_name : string, first_name : string, position : string)
+
++ AddProject() : void
++ DelProject() : void
++ GetProjects() : int
+}
+
+Manager <--* Department
+Worker <--o Department
+class Department {
+- name : string
+- manager : Manager
+- workers : Worker[]
+
++ Department(name : string)
+
++ GetName() : string
+
++ AddWorker(worker : Worker) : void
++ DelWorker(worker : Worker) : void
++ GetWorkers() : Worker[]
+
++ SetManager(manager : Manager) : void
++ GetManager() : Manager
+}
+
+Worker <--o Project
+class Project {
+- name : string
+- workers : Worker[]
+
++ Project(name : string)
+
++ GetName() : string
+
++ AddWorker(worker : Worker) : void
++ DelWorker(worker : Worker) : void
++ GetWorkers() : Worker[]
+}
+
+Manager <--* Company
+Department <--o Company
+Project <--o Company
+class Company {
+- name : string
+- general : Manager
+- departments : Department[]
+- projects : Project[]
+
++ Company(name : string)
+
++ AddDepartment(department : Department) : void
++ DelDepartment(department : Department) : void
++ GetDepartments() : Department[]
+
++ AddProject(project : Project) : void
++ DelProject(project : Project) : void
++ GetProjects() : Project[]
+
++ SetGeneral(general : Manager) : void
++ GetGeneral() : Manager
+}
+
+@enduml

@@ -1,0 +1,64 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+abstract class Employee {
+# first_name : string
+# last_name : string
+# position : string
+
+# Employee(last_name : string, first_name : string, position : string)
+
++ GetName() : string
++ GetPosition() : string
+}
+
+Employee <|-- Manager
+Worker <--o Manager
+class Manager {
+- department : string
+- workers : Worker[]
+
++ Manager(last_name : string, first_name : string, position : string, department : string)
+
++ AddWorker(worker : Employee) : void
++ DelWorker(worker : Employee) : void
++ GetWorkers() : Employee[]
+}
+
+Employee <|-- Worker
+class Worker {
+- projects : string[]
+
++ Worker(last_name : string, first_name : string, position : string)
+
++ AddProject(project : string) : void
++ DelProject(project : string) : void
++ GetProjects() : string[]
+}
+
+Employee <|-- General
+Manager <--o General
+class General {
+- managers : Manager[]
+
++ General(last_name : string, first_name : string, position : string)
+
++ AddManager(manager : Manager) : void
++ DelManager(manager : Manager) : void
++ GetManagers() : Manager[]
+}
+
+General <--* Company
+class Company {
+- name : string
+- general : General
+
++ Company(name : string)
+
++ SetGeneral(general : General) : void
++ GetGeneral() : General
+}
+
+
+
+@enduml
